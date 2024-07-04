@@ -1,13 +1,10 @@
 package org.example.controllers;
 
-
 import io.swagger.annotations.Api;
+import org.example.exceptions.FailedToCreateException;
 import org.example.models.HRRequest;
 import org.example.services.HRService;
-import org.example.services.TestService;
 
-import javax.print.attribute.standard.Media;
-import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -21,20 +18,25 @@ public class HRController {
 
     HRService hrService;
 
-    public HRController(HRService hrService) { this.hrService = hrService;
+    public HRController(final HRService hrService) {
+        this.hrService = hrService;
     }
-
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createDeliveryEmployee(HRRequest hrRequest) {
+    public Response createDeliveryEmployee(final HRRequest hrRequest) {
         try {
             return Response
                     .status(Response.Status.CREATED)
                     .entity(hrService.createDeliveryEmployee(hrRequest))
                     .build();
         } catch (SQLException e) {
-            return Response.serverError().build();
+
+            return Response.serverError().entity(e.getMessage()).build();
+        } catch (FailedToCreateException e) {
+            System.out.println(e.getMessage());
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(e.getMessage()).build();
         }
     }
 }

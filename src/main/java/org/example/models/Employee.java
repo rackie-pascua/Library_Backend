@@ -5,55 +5,78 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 public class Employee {
 
     @JsonProperty
-    private String emp_fname;
+    private String empFname;
 
     @JsonProperty
-    private String emp_lname;
+    private String empLname;
+    @JsonProperty
+    int roleId;
 
     @JsonProperty
-    int bank_acct_no;
+    int bankAcctNo;
 
     @JsonProperty
-    private String ni_no;
+    private String nationalInsuranceNo;
+    @JsonProperty
+    private double salary;
 
-
-    public Employee(String emp_fname, String emp_lname, int bank_acct_no,
-                    String ni_no) {
-        this.emp_fname = emp_fname;
-        this.emp_lname = emp_lname;
-        this.bank_acct_no = bank_acct_no;
-        this.ni_no = ni_no;
+    public Employee(final String empFname, final String empLname,
+                    final int roleId,
+                    final int bankAcctNo, final String nationalInsuranceNo,
+                    final double salary) {
+        this.empFname = empFname;
+        this.empLname = empLname;
+        this.bankAcctNo = bankAcctNo;
+        this.nationalInsuranceNo = nationalInsuranceNo;
     }
 
-    public String getEmp_fname() {
-        return emp_fname;
+    public double getSalary() {
+        return salary;
     }
 
-    public void setEmp_fname(String emp_fname) {
-        this.emp_fname = emp_fname;
+    public void setSalary(double salary) {
+        this.salary = salary;
     }
 
-    public String getEmp_lname() {
-        return emp_lname;
+    public int getRoleId() {
+        return roleId;
     }
 
-    public void setEmp_lname(String emp_lname) {
-        this.emp_lname = emp_lname;
+    public void setRoleId(final int roleId) {
+        this.roleId = roleId;
     }
 
-    public int getBank_acct_no() {
-        return bank_acct_no;
+    public String getEmpFname() {
+        return empFname;
     }
 
-    public void setBank_acct_no(int bank_acct_no) {
-        this.bank_acct_no = bank_acct_no;
+    public void setEmpFname(final String empFname) {
+        this.empFname = empFname;
     }
 
-    public String getNi_no() {
-        return ni_no;
+    public String getEmpLname() {
+        return empLname;
     }
 
-    public void setNi_no(String ni_no) {
-        this.ni_no = ni_no;
+    public void setEmpLname(final String empLname) {
+        this.empLname = empLname;
+    }
+
+    public int getBankAcctNo() {
+        return bankAcctNo;
+    }
+
+    public void setBankAcctNo(final int bankAcctNo) {
+        this.bankAcctNo = bankAcctNo;
+    }
+
+    public String getNationalInsuranceNo() {
+        return nationalInsuranceNo;
+    }
+
+    public void setNationalInsuranceNo(final String nationalInsuranceNo) {
+        this.nationalInsuranceNo = nationalInsuranceNo;
     }
 }
+
+
