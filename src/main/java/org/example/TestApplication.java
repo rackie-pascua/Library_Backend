@@ -11,6 +11,9 @@ import org.example.daos.ManagementDao;
 import org.example.daos.TestDao;
 import org.example.services.ManagementService;
 import org.example.services.TestService;
+import org.example.controllers.HRController;
+import org.example.daos.HRDao;
+import org.example.services.HRService;
 
 public class TestApplication extends Application<TestConfiguration> {
     public static void main(final String[] args) throws Exception {
@@ -39,6 +42,8 @@ public class TestApplication extends Application<TestConfiguration> {
                 .register(new ManagementController(
                         new ManagementService(
                                 new ManagementDao())));
+        environment.jersey()
+                .register(new HRController(new HRService(new HRDao())));
     }
 
 }

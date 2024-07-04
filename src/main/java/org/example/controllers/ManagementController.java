@@ -1,6 +1,7 @@
 package org.example.controllers;
 
 import io.swagger.annotations.Api;
+import org.example.exceptions.FailedToCreateException;
 import org.example.models.Project;
 import org.example.services.ManagementService;
 
@@ -16,6 +17,7 @@ import java.sql.SQLException;
 @Path("/api/management")
 public class ManagementController {
     final ManagementService managementService;
+
     public ManagementController(final ManagementService managementService) {
         this.managementService = managementService;
     }
@@ -36,6 +38,11 @@ public class ManagementController {
                     .build();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        } catch (
+                FailedToCreateException e) {
+            System.out.println(e.getMessage());
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(e.getMessage()).build();
         }
     }
 }

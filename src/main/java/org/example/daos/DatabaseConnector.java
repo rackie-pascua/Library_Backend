@@ -6,7 +6,10 @@ import java.sql.SQLException;
 
 public final class DatabaseConnector {
     private static Connection conn;
-    private DatabaseConnector() { }
+
+    private DatabaseConnector() {
+    }
+
     public static Connection getConnection() throws SQLException {
 
         if (conn != null && !conn.isClosed()) {
@@ -14,19 +17,18 @@ public final class DatabaseConnector {
         }
 
         try {
-            String username = System.getenv().get("DB_USERNAME");
-            String password = System.getenv().get("DB_PASSWORD");
-            String host = System.getenv().get("DB_HOST");
-            String name = System.getenv().get("DB_NAME");
+            String url = System.getenv("FLYWAY_URL");
+            String password = System.getenv("FLYWAY_PASSWORD");
+            String username = System.getenv("FLYWAY_USER");
 
-            if (username == null || password == null || host == null
-                    || name == null) {
+            if (username == null || password == null || url == null) {
                 throw new IllegalArgumentException(
                         "Add the following properties to env vars: "
-                        + "DB_USERNAME, DB_PASSWORD, DB_HOST and DB_NAME");
+                                + "DB_USERNAME, "
+                                + "DB_PASSWORD, DB_HOST and DB_NAME");
             }
             conn = DriverManager.getConnection(
-                    "jdbc:mysql://" + host + "/" + name, username, password);
+                    url + "?useSSL=false", username, password);
             return conn;
 
         } catch (Exception e) {
