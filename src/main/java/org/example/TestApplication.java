@@ -7,7 +7,9 @@ import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
 import org.example.controllers.ManagementController;
 import org.example.controllers.TestController;
+import org.example.daos.ManagementDao;
 import org.example.daos.TestDao;
+import org.example.services.ManagementService;
 import org.example.services.TestService;
 
 public class TestApplication extends Application<TestConfiguration> {
@@ -34,7 +36,9 @@ public class TestApplication extends Application<TestConfiguration> {
         environment.jersey()
                 .register(new TestController(new TestService(new TestDao())));
         environment.jersey()
-                .register(new ManagementController());
+                .register(new ManagementController(
+                        new ManagementService(
+                                new ManagementDao())));
     }
 
 }
