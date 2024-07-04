@@ -1,0 +1,1 @@
+INSERT INTO `Role`(role_type) VALUES("Delivery");
