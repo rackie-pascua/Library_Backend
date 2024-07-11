@@ -5,6 +5,7 @@ import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import io.federecio.dropwizard.swagger.SwaggerBundle;
 import io.federecio.dropwizard.swagger.SwaggerBundleConfiguration;
+import org.example.controllers.AuthController;
 import org.example.controllers.ManagementController;
 import org.example.daos.ManagementDao;
 import org.example.daos.TestDao;
@@ -35,7 +36,7 @@ public class TestApplication extends Application<TestConfiguration> {
     public void run(final TestConfiguration configuration,
                     final Environment environment) {
         environment.jersey()
-                .register(new TestController(new TestService(new TestDao())));
+                        .register(new AuthController());
         environment.jersey()
                 .register(new ManagementController(
                         new ManagementService(
