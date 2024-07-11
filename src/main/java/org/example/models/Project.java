@@ -4,15 +4,18 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Project {
+    @JsonProperty
     private String name;
+    @JsonProperty
     private double value;
+    @JsonProperty
     private int client;
 
     public String getName() {
         return name;
     }
 
-    public void setName(final String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -20,7 +23,7 @@ public class Project {
         return value;
     }
 
-    public void setValue(final double value) {
+    public void setValue(double value) {
         this.value = value;
     }
 
@@ -28,7 +31,7 @@ public class Project {
         return client;
     }
 
-    public void setClient(final int client) {
+    public void setClient(int client) {
         this.client = client;
     }
 

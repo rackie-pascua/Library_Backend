@@ -2,6 +2,7 @@ package org.example.controllers;
 
 import io.swagger.annotations.Api;
 import org.example.exceptions.FailedToCreateException;
+import org.example.models.ManagementRequest;
 import org.example.models.Project;
 import org.example.services.ManagementService;
 
@@ -22,19 +23,19 @@ public class ManagementController {
         this.managementService = managementService;
     }
 
-    @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response getManagement() {
-        return Response.ok().entity("List of management").build();
-    }
+//    @GET
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response getManagement() {
+//        return Response.ok().entity("List of management").build();
+//    }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Response createProject(final Project project) {
+    public Response createProject(final ManagementRequest managementRequest) {
         try {
             return Response
                     .status(Response.Status.CREATED)
-                    .entity(managementService.createProject(project))
+                    .entity(managementService.createProject(managementRequest))
                     .build();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -44,5 +45,10 @@ public class ManagementController {
             return Response.status(Response.Status.NOT_FOUND)
                     .entity(e.getMessage()).build();
         }
+    }
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response getAllProjectClients() throws SQLException {
+        return Response.ok().entity(managementService.getAllProjectClients()).build();
     }
 }
