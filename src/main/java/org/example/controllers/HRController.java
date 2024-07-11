@@ -1,13 +1,18 @@
 package org.example.controllers;
 
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.Authorization;
 import org.example.exceptions.FailedToCreateException;
 import org.example.models.HRRequest;
+import org.example.models.UserRole;
 import org.example.services.HRService;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.sql.SQLException;
@@ -24,6 +29,11 @@ public class HRController {
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
+    @RolesAllowed({UserRole.HR})
+    @ApiOperation(
+            value = "Creates a delivery employee",
+            authorizations = @Authorization(value = HttpHeaders.AUTHORIZATION),
+            response = int.class)
     public Response createDeliveryEmployee(final HRRequest hrRequest) {
         try {
             return Response
