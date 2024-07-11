@@ -1,5 +1,7 @@
 package org.example.controllers;
 
+import io.jsonwebtoken.Jwts;
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiKeyAuthDefinition;
 import io.swagger.annotations.SecurityDefinition;
@@ -14,6 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.HttpHeaders;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.sql.SQLException;
 
 @Api("Auth API")
 @Path("/api/auth")
@@ -40,7 +43,12 @@ public class AuthController {
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(LoginRequest loginRequest) {
         try {
-            return Response.ok().entity(auth)
+            return Response.ok().entity(authService.login(loginRequest)).build();
+        } catch (SQLException e) {
+            return Response.serverError().build();
+        } catch (InvalidException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+
         }
     }
 
