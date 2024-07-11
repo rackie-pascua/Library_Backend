@@ -1,11 +1,10 @@
 package org.example.controllers;
 
-import io.jsonwebtoken.Jwts;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiKeyAuthDefinition;
 import io.swagger.annotations.SecurityDefinition;
 import io.swagger.annotations.SwaggerDefinition;
+import org.example.exceptions.InvalidException;
 import org.example.models.LoginRequest;
 import org.example.services.AuthService;
 
@@ -51,10 +50,5 @@ public class AuthController {
 
         }
     }
-
-//    @POST
-//    @Path("/register")
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @RolesAllowed({})
 }
 

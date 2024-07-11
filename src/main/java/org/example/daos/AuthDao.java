@@ -1,6 +1,5 @@
 package org.example.daos;
 
-import org.example.daos.DatabaseConnector;
 import org.example.models.LoginRequest;
 import org.example.models.User;
 
@@ -13,7 +12,7 @@ import java.sql.SQLException;
 public class AuthDao {
     public User getUser(LoginRequest loginRequest) throws SQLException {
         try (Connection connection = DatabaseConnector.getConnection()) {
-            String query = "SELECT Username, Password FROM `User` where Username = ? AND Password = ?";
+            String query = "SELECT Username, Password, SystemRoleId FROM `User` where Username = ? AND Password = ?";
 
             PreparedStatement st = connection.prepareStatement(query);
             st.setString(1, loginRequest.getUsername());
